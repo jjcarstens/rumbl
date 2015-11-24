@@ -1,0 +1,21 @@
+v1.
+{<<"/Users/joncarstens/Development/phoenix/rumbl/_build/dev/lib/phoenix_live_reload/ebin/Elixir.Phoenix.LiveReloader.Socket.beam">>,
+ 'Elixir.Phoenix.LiveReloader.Socket',<<"lib/phoenix_live_reload/socket.ex">>,
+ ['Elixir.Phoenix.Transports.WebSocket','Elixir.Kernel','Elixir.Phoenix',
+  'Elixir.Module','Elixir.Phoenix.Transports.LongPoll',
+  'Elixir.Phoenix.Socket'],
+ [],[],nil}.
+{<<"/Users/joncarstens/Development/phoenix/rumbl/_build/dev/lib/phoenix_live_reload/ebin/Elixir.Phoenix.LiveReload.Channel.beam">>,
+ 'Elixir.Phoenix.LiveReload.Channel',<<"lib/phoenix_live_reload/channel.ex">>,
+ ['Elixir.Phoenix.Channel','Elixir.Kernel','Elixir.Module',
+  'Elixir.Phoenix.Socket'],
+ [erlang,'Elixir.Application','Elixir.Access','Elixir.String.Chars',
+  'Elixir.String','Elixir.Enum',fs,'Elixir.Path'],
+ [],nil}.
+{<<"/Users/joncarstens/Development/phoenix/rumbl/_build/dev/lib/phoenix_live_reload/ebin/Elixir.Phoenix.LiveReloader.beam">>,
+ 'Elixir.Phoenix.LiveReloader',<<"lib/phoenix_live_reload/live_reloader.ex">>,
+ ['Elixir.Plug.Conn','Elixir.Application','Elixir.Kernel','Elixir.Plug',
+  'Elixir.File','Elixir.Module'],
+ [erlang,'Elixir.Access','Elixir.Map','Elixir.String.Chars','Elixir.String',
+  'Elixir.Enum','Elixir.Path'],
+ [],nil}.
