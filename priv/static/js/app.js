@@ -1242,6 +1242,8 @@ var _player2 = _interopRequireDefault(_player);
 var Video = {
 
   init: function init(socket, element) {
+    var _this = this;
+
     if (!element) {
       return;
     }
@@ -1255,11 +1257,72 @@ var Video = {
     socket.connect();
     var vidChannel = socket.channel("videos:" + videoId);
 
+    postButton.addEventListener("click", function (e) {
+      var payload = { body: msgInput.value, at: _player2["default"].getCurrentTime() };
+      vidChannel.push("new_annotation", payload).receive("error", function (e) {
+        return console.log(e);
+      });
+      msgInput.value = "";
+    });
+
+    vidChannel.on("new_annotation", function (resp) {
+      _this.renderAnnotation(msgContainer, resp);
+    });
+
+    msgContainer.addEventListener("click", function (e) {
+      e.preventDefault();
+      var seconds = e.target.getAttribute("date-seek");
+      if (!seconds) {
+        return;
+      }
+      _player2["default"].seekTo(seconds);
+    });
+
     vidChannel.join().receive("ok", function (resp) {
-      return console.log("joined the video channel", resp);
+      _this.scheduleMessages(msgContainer, resp.annotations);
     }).receive("error", function (reason) {
       return console.log("join failed", reason);
     });
+  },
+
+  renderAnnotation: function renderAnnotation(msgContainer, _ref) {
+    var user = _ref.user;
+    var body = _ref.body;
+    var at = _ref.at;
+
+    var template = document.createElement("div");
+    template.innerHTML = "\n  \t<b>" + user.username + "</b>: " + body + "\n  \t";
+    msgContainer.appendChild(template);
+    msgContainer.scrollTop = msgContainer.scrollHeight;
+  },
+
+  scheduleMessages: function scheduleMessages(msgContainer, annotations) {
+    var _this2 = this;
+
+    setTimeout(function () {
+      var ctime = _player2["default"].getCurrentTime();
+      var remaining = _this2.renderAtTime(annotations, ctime, msgContainer);
+      _this2.scheduleMessages(msgContainer, remaining);
+    }, 1000);
+  },
+
+  renderAtTime: function renderAtTime(annotations, seconds, msgContainer) {
+    var _this3 = this;
+
+    return annotations.filter(function (ann) {
+      if (ann.at > seconds) {
+        return true;
+      } else {
+        _this3.renderAnnotation(msgContainer, ann);
+        return false;
+      }
+    });
+  },
+
+  formatTime: function formatTime(at) {
+    var date = new Date(null);
+    date.setSeconds(at / 1000);
+    return date.toISOString().substr(14, 5);
   }
 };
 exports["default"] = Video;
