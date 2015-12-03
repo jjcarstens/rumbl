@@ -1,12 +1,11 @@
 defmodule Rumbl.AnnotationView do
 	use Rumbl.Web, :view
 
-	def render("annotation.json", %{annotaiton: ann}) do
-		%{
-			id: ann.id,
-			body: ann.body,
-			at: ann.at,
-			user: render_one(ann.user, Rumbl.UserView, "user.json")
+	def render("annotation.json", %{annotation: annotation }) do
+		%{id: annotation.id,
+			body: annotation.body,
+			at: annotation.at,
+			user: render_one(annotation.user, Rumbl.UserView, "user.json"),
 		}
 	end
 end
