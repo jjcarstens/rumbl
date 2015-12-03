@@ -5,7 +5,7 @@
   <%= for user <- @users do %>
     <tr>
       <td><b><%= render "user.html", user: user %></td>
-      <td><%= link "View", to: user_path(@conn, :show, user.username) %></td>
+      <td><%= link "View", to: user_path(@conn, :show, user.id) %></td>
       <td><%= link "Delete!", to: user_path(@conn, :delete, user.id), method: :delete %></td>
      </tr>
    <% end %>
