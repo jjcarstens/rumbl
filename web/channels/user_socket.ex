@@ -1,5 +1,6 @@
 defmodule Rumbl.UserSocket do
   use Phoenix.Socket
+  alias Rumbl.Repo
 
   ## Channels
   channel "videos:*", Rumbl.VideoChannel
@@ -21,5 +22,7 @@ defmodule Rumbl.UserSocket do
   end
   def connect(_params, _socket), do: :error
 
-  def id(socket), do: "users_socket:" <> socket.assigns.user_id
+  def id(socket) do
+    "user_socket:#{socket.assigns.current_user.id}"
+  end
 end

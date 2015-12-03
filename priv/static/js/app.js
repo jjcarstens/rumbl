@@ -1240,7 +1240,6 @@ var _player = require("./player");
 var _player2 = _interopRequireDefault(_player);
 
 var Video = {
-
   init: function init(socket, element) {
     var _this = this;
 
@@ -1269,29 +1268,31 @@ var Video = {
       _this.renderAnnotation(msgContainer, resp);
     });
 
+    vidChannel.join().receive("ok", function (_ref) {
+      var annotations = _ref.annotations;
+
+      _this.scheduleMessages(msgContainer, annotations);
+    }).receive("error", function (reason) {
+      return console.log("could not join video channel", reason);
+    });
+
     msgContainer.addEventListener("click", function (e) {
       e.preventDefault();
-      var seconds = e.target.getAttribute("date-seek");
+      var seconds = e.target.getAttribute("data-seek");
       if (!seconds) {
         return;
       }
       _player2["default"].seekTo(seconds);
     });
-
-    vidChannel.join().receive("ok", function (resp) {
-      _this.scheduleMessages(msgContainer, resp.annotations);
-    }).receive("error", function (reason) {
-      return console.log("join failed", reason);
-    });
   },
 
-  renderAnnotation: function renderAnnotation(msgContainer, _ref) {
-    var user = _ref.user;
-    var body = _ref.body;
-    var at = _ref.at;
+  renderAnnotation: function renderAnnotation(msgContainer, _ref2) {
+    var user = _ref2.user;
+    var body = _ref2.body;
+    var at = _ref2.at;
 
     var template = document.createElement("div");
-    template.innerHTML = "\n  \t<b>" + user.username + "</b>: " + body + "\n  \t";
+    template.innerHTML = "\n    <a href=\"#\" data-seek=\"" + at + "\">\n      [" + this.formatTime(at) + "] <b>" + user.username + "</b>: " + body + "\n    </a>\n    ";
     msgContainer.appendChild(template);
     msgContainer.scrollTop = msgContainer.scrollHeight;
   },
