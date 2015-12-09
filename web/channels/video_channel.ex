@@ -3,7 +3,6 @@ defmodule Rumbl.VideoChannel do
 	alias Rumbl.AnnotationView
 
 	def join("videos:" <> video_id, _params, socket) do
-		:timer.send_interval(5_000, :ping)
 		vid_id = String.to_integer(video_id)
 		video = Repo.get!(Rumbl.Video, vid_id)
 		annotations = Repo.all(
