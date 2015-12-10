@@ -8,3 +8,9 @@ LOG:  database system is shut down
 LOG:  database system was shut down at 2015-12-01 00:06:45 MST
 LOG:  database system is ready to accept connections
 LOG:  autovacuum launcher started
+WARNING:  worker took too long to start; canceled
+WARNING:  autovacuum worker started without a worker entry
+WARNING:  worker took too long to start; canceled
+WARNING:  autovacuum worker started without a worker entry
+WARNING:  worker took too long to start; canceled
+WARNING:  autovacuum worker started without a worker entry
